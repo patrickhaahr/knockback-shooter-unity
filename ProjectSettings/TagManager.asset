@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - New tag
   - Pickups
+  - EnemyShooter
+  - EnemyMissile
   layers:
   - Default
   - TransparentFX
