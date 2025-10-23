@@ -135,4 +135,9 @@ Vector2 spawnPosition = GetRandomSpawnPosition();
     {
         difficultyMultiplier *= multiplier;
     }
+    
+    public void SetSpawnCooldown(float cooldown)
+    {
+        nextSpawnTime = Time.time + cooldown;
+    }
 }

@@ -171,6 +171,7 @@ public class BossBattleManager : MonoBehaviour
         {
             enemySpawner.IncreaseDifficulty(2f);
             enemySpawner.ResetForNextWave();
+            enemySpawner.SetSpawnCooldown(5f);
             enemySpawner.enabled = true;
         }
         
