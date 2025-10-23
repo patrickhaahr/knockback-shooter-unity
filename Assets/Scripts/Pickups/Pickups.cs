@@ -5,7 +5,8 @@ public enum PickupType
 {
     Health,
     FireRate,
-    Damage
+    Damage,
+    Ammo
 }
 
 public class Pickups : MonoBehaviour
@@ -23,7 +24,7 @@ public class Pickups : MonoBehaviour
 
     private void ApplyRandomBoost(GameObject player)
     {
-        PickupType randomBoost = (PickupType)UnityEngine.Random.Range(0, 3);
+        PickupType randomBoost = (PickupType)UnityEngine.Random.Range(0, 4);
 
         switch (randomBoost)
         {
@@ -51,6 +52,16 @@ public class Pickups : MonoBehaviour
                 {
                     controller.IncreaseDamage(5);
                     OnPickupCollected?.Invoke("+5 Damage");
+                }
+                break;
+
+            case PickupType.Ammo:
+                PlayerController ammoController = player.GetComponent<PlayerController>();
+                if (ammoController != null)
+                {
+                    ammoController.RefillAmmo();
+                    ammoController.IncreaseMaxAmmo(5);
+                    OnPickupCollected?.Invoke("Ammo Refilled +5 Capacity");
                 }
                 break;
         }

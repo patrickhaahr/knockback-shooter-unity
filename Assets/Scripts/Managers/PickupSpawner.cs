@@ -3,10 +3,10 @@ using UnityEngine;
 public class PickupSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject pickupPrefab;
-    [SerializeField] private Transform player;
     [SerializeField] private float spawnRadiusMin = 5f;
     [SerializeField] private float spawnRadiusMax = 10f;
 
+    private Transform player;
     private int killsSinceLastSpawnCheck = 0;
     private float currentSpawnChance = 0.30f;
     private const float baseSpawnChance = 0.30f;
@@ -15,6 +15,7 @@ public class PickupSpawner : MonoBehaviour
 
     private void Start()
     {
+        player = FindObjectOfType<PlayerController>().transform;
         SpawnPickup();
     }
 
@@ -69,6 +70,5 @@ public class PickupSpawner : MonoBehaviour
         Vector3 spawnPosition = player.position + (Vector3)offset;
 
         GameObject pickup = Instantiate(pickupPrefab, spawnPosition, Quaternion.identity);
-        Debug.LogWarning($"Pickup spawned at {spawnPosition}");
     }
 }

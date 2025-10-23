@@ -7,8 +7,10 @@ public class PlayerController : MonoBehaviour
   [SerializeField] private GameObject missilePrefab;
   [SerializeField] private float knockbackDistance = 2f;
   [SerializeField] private float knockbackSpeed = 10f;
-  [SerializeField] private float fireRate = 0.5f;
+  [SerializeField] private float fireRate = 0.2f;
   [SerializeField] private int missileDamage = 10;
+  [SerializeField] private int maxAmmo = 10;
+  [SerializeField] private float ammoRegenTime = 5f;
   
   private Camera mainCamera;
   private SpriteRenderer spriteRenderer;
@@ -17,12 +19,15 @@ public class PlayerController : MonoBehaviour
   private float nextFireTime = 0f;
   private Vector2 knockbackVelocity = Vector2.zero;
   private float knockbackTimer = 0f;
+  private int currentAmmo;
+  private float nextAmmoRegenTime = 0f;
 
    private void Start() {
      mainCamera = Camera.main;
      spriteRenderer = GetComponent<SpriteRenderer>();
      rb = GetComponent<Rigidbody2D>();
      playerHealth = GetComponent<PlayerHealth>();
+     currentAmmo = maxAmmo;
    }
 
    private void Update() {
@@ -37,8 +42,15 @@ public class PlayerController : MonoBehaviour
        }
      }
      
-     if (Mouse.current.leftButton.wasPressedThisFrame && Time.time >= nextFireTime) {
+     // Regenerate ammo
+     if (currentAmmo < maxAmmo && Time.time >= nextAmmoRegenTime) {
+       currentAmmo++;
+       nextAmmoRegenTime = Time.time + ammoRegenTime;
+     }
+     
+     if (Mouse.current.leftButton.wasPressedThisFrame && Time.time >= nextFireTime && currentAmmo > 0) {
        Shoot();
+       currentAmmo--;
        nextFireTime = Time.time + fireRate;
      }
    }
@@ -126,5 +138,26 @@ public class PlayerController : MonoBehaviour
     public void IncreaseDamage(int amount)
     {
         missileDamage += amount;
+    }
+
+    public void RefillAmmo()
+    {
+        currentAmmo = maxAmmo;
+    }
+
+    public void IncreaseMaxAmmo(int amount)
+    {
+        maxAmmo += amount;
+        currentAmmo = maxAmmo;
+    }
+
+    public int GetCurrentAmmo()
+    {
+        return currentAmmo;
+    }
+
+    public int GetMaxAmmo()
+    {
+        return maxAmmo;
     }
 }
