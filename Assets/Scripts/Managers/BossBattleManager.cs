@@ -18,12 +18,16 @@ public class BossBattleManager : MonoBehaviour
     [SerializeField] private float shakeIntensity = 0.5f;
     [SerializeField] private float shakeDuration = 1f;
     
+    [Header("Boss Scaling")]
+    [SerializeField] private float bossScaleMultiplier = 3f;
+    
     private Transform playerTransform;
     private CameraFollow cameraFollow;
     private int currentKillCount = 0;
     private bool bossSpawned = false;
     private GameObject currentBoss;
     private EnemySpawner enemySpawner;
+    private int bossDefeatCount = 0;
 
     private void Start()
     {
@@ -93,6 +97,8 @@ public class BossBattleManager : MonoBehaviour
         Vector2 spawnDirection = Random.insideUnitCircle.normalized;
         Vector3 spawnPosition = playerTransform.position + (Vector3)(spawnDirection * bossSpawnDistance);
         currentBoss = Instantiate(bossPrefab, spawnPosition, Quaternion.identity);
+        
+        ScaleBossStats();
     }
 
     private void DespawnAllEnemies()
@@ -111,10 +117,32 @@ public class BossBattleManager : MonoBehaviour
     private void OnBossDefeated()
     {
         bossSpawned = false;
+        bossDefeatCount++;
         
         SpawnPickups();
         
         StartCoroutine(ResumeWaveAfterDelay());
+    }
+    
+    private void ScaleBossStats()
+    {
+        if (currentBoss == null || bossDefeatCount == 0)
+            return;
+        
+        float scaleFactor = Mathf.Pow(bossScaleMultiplier, bossDefeatCount);
+        
+        BossAI bossAI = currentBoss.GetComponent<BossAI>();
+        if (bossAI != null)
+        {
+            bossAI.ScaleStats(scaleFactor);
+        }
+        
+        EnemyHealth bossHealth = currentBoss.GetComponent<EnemyHealth>();
+        if (bossHealth != null)
+        {
+            int scaledHealth = Mathf.RoundToInt(bossHealth.GetMaxHealth() * scaleFactor);
+            bossHealth.SetMaxHealth(scaledHealth);
+        }
     }
 
     private void SpawnPickups()
@@ -141,6 +169,7 @@ public class BossBattleManager : MonoBehaviour
         
         if (enemySpawner != null)
         {
+            enemySpawner.IncreaseDifficulty(2f);
             enemySpawner.ResetForNextWave();
             enemySpawner.enabled = true;
         }

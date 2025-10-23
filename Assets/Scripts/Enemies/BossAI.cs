@@ -32,6 +32,11 @@ public class BossAI : MonoBehaviour
     private float nextAttackTime;
     private int attackPattern = 0;
     private float orbitAngle = 0f;
+    
+    private float baseMoveSpeed;
+    private float baseMaxForce;
+    private float baseAttackCooldown;
+    private float baseMissileSpeed;
 
     private void Awake()
     {
@@ -41,6 +46,11 @@ public class BossAI : MonoBehaviour
         {
             rb.linearDamping = 0.5f;
         }
+        
+        baseMoveSpeed = moveSpeed;
+        baseMaxForce = maxForce;
+        baseAttackCooldown = attackCooldown;
+        baseMissileSpeed = missileSpeed;
     }
 
     private void Start()
@@ -78,25 +88,7 @@ public class BossAI : MonoBehaviour
     private void MoveTowardsPlayer()
     {
         Vector2 toPlayer = (Vector2)(playerTransform.position - transform.position);
-        float distanceToPlayer = toPlayer.magnitude;
-        
-        Vector2 tangent = new Vector2(-toPlayer.y, toPlayer.x).normalized;
-        
-        Vector2 desiredVelocity = Vector2.zero;
-        
-        float distanceDelta = distanceToPlayer - orbitDistance;
-        
-        if (Mathf.Abs(distanceDelta) > 1f)
-        {
-            float approachWeight = Mathf.Clamp01(Mathf.Abs(distanceDelta) / orbitDistance);
-            desiredVelocity = toPlayer.normalized * (distanceDelta * moveSpeed * 0.3f);
-            desiredVelocity += tangent * (moveSpeed * (1f - approachWeight * 0.5f));
-        }
-        else
-        {
-            desiredVelocity = tangent * moveSpeed;
-        }
-        
+        Vector2 desiredVelocity = toPlayer.normalized * moveSpeed;
         Vector2 steering = Vector2.ClampMagnitude(desiredVelocity - rb.linearVelocity, maxForce);
         rb.AddForce(steering);
     }
@@ -181,5 +173,17 @@ public class BossAI : MonoBehaviour
         {
             missileRb.linearVelocity = direction * missileSpeed;
         }
+    }
+    
+    public void ScaleStats(float scaleFactor)
+    {
+        moveSpeed = baseMoveSpeed * scaleFactor;
+        maxForce = baseMaxForce * scaleFactor;
+        missileSpeed = baseMissileSpeed * scaleFactor;
+        attackCooldown = baseAttackCooldown / scaleFactor;
+        
+        burstCount = Mathf.RoundToInt(burstCount * scaleFactor);
+        spreadCount = Mathf.RoundToInt(spreadCount * scaleFactor);
+        minionSpawnCount = Mathf.RoundToInt(minionSpawnCount * scaleFactor);
     }
 }

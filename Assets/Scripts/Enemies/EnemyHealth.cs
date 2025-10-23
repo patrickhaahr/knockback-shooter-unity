@@ -39,6 +39,12 @@ public class EnemyHealth : MonoBehaviour
     {
         return isBoss;
     }
+    
+    public void SetMaxHealth(int health)
+    {
+        maxHealth = health;
+        currentHealth = maxHealth;
+    }
 
     private void Die()
     {

@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 3798412696082834082}
   - component: {fileID: 1991836081882392174}
   - component: {fileID: 9129151410134770512}
+  - component: {fileID: 8129151410134770513}
+  - component: {fileID: 8129151410134770514}
   m_Layer: 0
   m_Name: EnemyMinion
   m_TagString: Enemy
@@ -124,7 +126,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -155,7 +157,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -197,3 +199,31 @@ MonoBehaviour:
   maxHealth: 20
   currentHealth: 0
   isBoss: 0
+--- !u!114 &8129151410134770513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7127595134306574933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdc915acba1f45d0b82deac42bc20039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MinionAI
+  moveSpeed: 12
+  maxForce: 20
+--- !u!114 &8129151410134770514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7127595134306574933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebaca7c0aeb32953cad147f169fbc816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDamage
+  playerContactDamage: 20
+  damageInterval: 0.5

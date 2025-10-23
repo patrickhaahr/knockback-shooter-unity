@@ -15,6 +15,7 @@ public class EnemySpawner : MonoBehaviour
     private int enemiesSpawnedThisWave;
     private int enemiesKilledThisWave;
     private bool isSpawningWave = true;
+    private float difficultyMultiplier = 1f;
 
 private void Start()
     {
@@ -67,6 +68,18 @@ private void Start()
 
 Vector2 spawnPosition = GetRandomSpawnPosition();
         GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        
+        EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+        if (enemyHealth != null)
+        {
+            enemyHealth.SetMaxHealth((int)(enemyHealth.GetMaxHealth() * difficultyMultiplier));
+        }
+        
+        EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
+        if (enemyAI != null)
+        {
+            enemyAI.SetMoveSpeed(enemyAI.GetMoveSpeed() * difficultyMultiplier);
+        }
     }
 
     private Vector2 GetRandomSpawnPosition()
@@ -116,5 +129,10 @@ Vector2 spawnPosition = GetRandomSpawnPosition();
         enemiesKilledThisWave = 0;
         isSpawningWave = true;
         nextSpawnTime = Time.time + spawnInterval;
+    }
+    
+    public void IncreaseDifficulty(float multiplier)
+    {
+        difficultyMultiplier *= multiplier;
     }
 }

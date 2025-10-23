@@ -75,4 +75,14 @@ public class EnemyAI : MonoBehaviour
 
         return separationForce.normalized;
     }
+    
+    public float GetMoveSpeed()
+    {
+        return moveSpeed;
+    }
+    
+    public void SetMoveSpeed(float speed)
+    {
+        moveSpeed = speed;
+    }
 }
