@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="health-container" style="position: absolute; top: 20px; left: 20px; width: 300px; height: 30px; background-color: rgba(0, 0, 0, 0.5); border-radius: 5px; padding: 5px;">
+        <ui:Label text="Health:" display-tooltip-when-elided="true" name="health-label" style="color: white; font-size: 16px; margin-right: 10px; -unity-text-align: middle-left;" />
+        <ui:ProgressBar name="health-bar" value="100" low-value="0" high-value="100" style="flex-grow: 1; height: 20px;" />
+        <ui:Label text="100/100" display-tooltip-when-elided="true" name="health-text" style="color: white; font-size: 14px; margin-left: 10px; -unity-text-align: middle-left; min-width: 50px;" />
+    </ui:VisualElement>
+</ui:UXML>
