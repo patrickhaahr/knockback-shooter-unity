@@ -147,18 +147,15 @@ private void Update() {
       }
     }
 
-    public void IncreaseFireRate(float decrease)
-    {
-        fireRate -= decrease;
-        if (fireRate < 0.1f)
-        {
-            fireRate = 0.1f;
-        }
-    }
-
     public void IncreaseDamage(int amount)
     {
         missileDamage += amount;
+    }
+
+    public void IncreaseKnockback(float distanceIncrease, float speedIncrease)
+    {
+        knockbackDistance += distanceIncrease;
+        knockbackSpeed += speedIncrease;
     }
 
     public void RefillAmmo()

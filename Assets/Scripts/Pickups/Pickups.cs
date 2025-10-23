@@ -4,9 +4,9 @@ using System;
 public enum PickupType
 {
     Health,
-    FireRate,
     Damage,
-    Ammo
+    Ammo,
+    KnockbackPower
 }
 
 public class Pickups : MonoBehaviour
@@ -37,15 +37,6 @@ public class Pickups : MonoBehaviour
                 }
                 break;
 
-            case PickupType.FireRate:
-                PlayerController playerController = player.GetComponent<PlayerController>();
-                if (playerController != null)
-                {
-                    playerController.IncreaseFireRate(0.1f);
-                    OnPickupCollected?.Invoke("+Fire Rate");
-                }
-                break;
-
             case PickupType.Damage:
                 PlayerController controller = player.GetComponent<PlayerController>();
                 if (controller != null)
@@ -62,6 +53,15 @@ public class Pickups : MonoBehaviour
                     ammoController.RefillAmmo();
                     ammoController.IncreaseMaxAmmo(5);
                     OnPickupCollected?.Invoke("Ammo Refilled +5 Capacity");
+                }
+                break;
+
+            case PickupType.KnockbackPower:
+                PlayerController knockbackController = player.GetComponent<PlayerController>();
+                if (knockbackController != null)
+                {
+                    knockbackController.IncreaseKnockback(0.5f, 0.3f);
+                    OnPickupCollected?.Invoke("+Knockback Power");
                 }
                 break;
         }
