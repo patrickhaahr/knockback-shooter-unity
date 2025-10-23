@@ -1,7 +1,7 @@
 ## Game Design
 - **Genre**: Top-down space shooter (spaceship vs aliens)
 - **Combat**: Player shoots missiles at cursor position with knockback opposite to shoot direction
-- **Enemy AI**: Closest enemy follows player; others follow closest enemy (performance optimization)
+- **Enemy AI**: Direct pursuit of player with separation to avoid clumping (simple and performant)
 - **Wave System**: Progress by killing enemies (Wave 1: 10 enemies, Wave 2: 20, etc.); enemies get tougher each wave
 - **Progression**: Pickup items drop randomly; grant upgrades (health, damage, multi-shot, etc.)
 - **Camera**: Follow spaceship player in top-down view
