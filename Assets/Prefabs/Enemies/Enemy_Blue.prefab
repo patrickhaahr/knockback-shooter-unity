@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 2426881939912866527}
   - component: {fileID: 9219828307231571065}
   - component: {fileID: -954587559852772400}
+  - component: {fileID: 8899621983858237015}
+  - component: {fileID: 501975889393502339}
   m_Layer: 0
   m_Name: Enemy_Blue
   m_TagString: Enemy
@@ -208,3 +210,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDamage
   missileDamage: 10
+  playerContactDamage: 10
+  damageInterval: 1
+--- !u!114 &8899621983858237015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7896178477767379604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 5c9b1a4abbf0dd9d9a359ebdf5b024aa, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 3092985eed320fe5c810b77901a1a30f, type: 3}
+  m_SortingOrder: 0
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
+--- !u!114 &501975889393502339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7896178477767379604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c966494e254ed0ea8c13e3b9c3410e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealthBar
+  uiDocument: {fileID: 0}
+  enemyHealth: {fileID: 0}
+  offset: {x: 0, y: 1.5, z: 0}

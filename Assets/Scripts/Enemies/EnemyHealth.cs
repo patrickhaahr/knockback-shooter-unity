@@ -23,9 +23,18 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
     private void Die()
     {
-        Debug.Log("Enemy died - despawning");
         OnEnemyDestroyed?.Invoke();
         Destroy(gameObject);
     }
