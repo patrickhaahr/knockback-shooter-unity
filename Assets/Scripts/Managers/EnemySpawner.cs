@@ -107,4 +107,14 @@ Vector2 spawnPosition = GetRandomSpawnPosition();
     {
         enemyPrefab = prefab;
     }
+
+    public void ResetForNextWave()
+    {
+        currentWave++;
+        enemiesPerWave += 10;
+        enemiesSpawnedThisWave = 0;
+        enemiesKilledThisWave = 0;
+        isSpawningWave = true;
+        nextSpawnTime = Time.time + spawnInterval;
+    }
 }

@@ -5,11 +5,11 @@ public class PlayerController : MonoBehaviour
 {
 
   [SerializeField] private GameObject missilePrefab;
-  [SerializeField] private float knockbackDistance = 2f;
+  [SerializeField] private float knockbackDistance = 3f;
   [SerializeField] private float knockbackSpeed = 10f;
   [SerializeField] private float fireRate = 0.1f;
   [SerializeField] private int missileDamage = 25;
-  [SerializeField] private int maxAmmo = 10;
+  [SerializeField] private int maxAmmo = 15;
   [SerializeField] private float ammoRegenTime = 2f;
   [SerializeField] private float moveSpeed = 8f;
   
@@ -180,5 +180,11 @@ private void Update() {
     public int GetMaxAmmo()
     {
         return maxAmmo;
+    }
+
+    public void AddAmmo(int amount)
+    {
+        currentAmmo += amount;
+        if (currentAmmo > maxAmmo) currentAmmo = maxAmmo;
     }
 }

@@ -5,8 +5,10 @@ public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 50;
     [SerializeField] private int currentHealth;
+    [SerializeField] private bool isBoss = false;
 
     public static event Action OnEnemyDestroyed;
+    public static event Action OnBossDestroyed;
 
     private void Start()
     {
@@ -33,9 +35,39 @@ public class EnemyHealth : MonoBehaviour
         return maxHealth;
     }
 
+    public bool IsBoss()
+    {
+        return isBoss;
+    }
+
     private void Die()
     {
-        OnEnemyDestroyed?.Invoke();
+        if (isBoss)
+        {
+            OnBossDestroyed?.Invoke();
+        }
+        else
+        {
+            OnEnemyDestroyed?.Invoke();
+        }
+        
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            PlayerController playerController = player.GetComponent<PlayerController>();
+            PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+            
+            if (playerController != null)
+            {
+                playerController.AddAmmo(1);
+            }
+            
+            if (playerHealth != null)
+            {
+                playerHealth.Heal(10);
+            }
+        }
+        
         Destroy(gameObject);
     }
 }
