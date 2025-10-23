@@ -19,7 +19,7 @@ public class BossBattleManager : MonoBehaviour
     [SerializeField] private float shakeDuration = 1f;
     
     [Header("Boss Scaling")]
-    [SerializeField] private float bossScaleMultiplier = 3f;
+    [SerializeField] private float bossScaleMultiplier = 2f;
     
     private Transform playerTransform;
     private CameraFollow cameraFollow;
