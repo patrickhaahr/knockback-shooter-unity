@@ -5,15 +5,18 @@ public class PlayerController : MonoBehaviour
 {
 
   [SerializeField] private GameObject missilePrefab;
-  [SerializeField] private float knockbackForce = 5f;
-  [SerializeField] private float maxKnockbackSpeed = 10f;
-  [SerializeField] private float knockbackDecayRate = 5f;
+  [SerializeField] private float knockbackDistance = 2f;
+  [SerializeField] private float knockbackSpeed = 10f;
+  [SerializeField] private float fireRate = 0.5f;
+  [SerializeField] private int missileDamage = 10;
   
   private Camera mainCamera;
   private SpriteRenderer spriteRenderer;
   private Rigidbody2D rb;
   private PlayerHealth playerHealth;
-  private float currentKnockbackSpeed = 0f;
+  private float nextFireTime = 0f;
+  private Vector2 knockbackVelocity = Vector2.zero;
+  private float knockbackTimer = 0f;
 
    private void Start() {
      mainCamera = Camera.main;
@@ -22,21 +25,23 @@ public class PlayerController : MonoBehaviour
      playerHealth = GetComponent<PlayerHealth>();
    }
 
-     private void Update() {
-       RotateTowardsMouse();
-       
-       // Decay knockback speed over time
-       if (currentKnockbackSpeed > 0f) {
-         currentKnockbackSpeed -= knockbackDecayRate * Time.deltaTime;
-         if (currentKnockbackSpeed < 0f) {
-           currentKnockbackSpeed = 0f;
-         }
-       }
-       
-       if (Mouse.current.leftButton.wasPressedThisFrame) {
-         Shoot();
+   private void Update() {
+     RotateTowardsMouse();
+     
+     // Apply knockback movement
+     if (knockbackTimer > 0f) {
+       knockbackTimer -= Time.deltaTime;
+       if (knockbackTimer <= 0f) {
+         knockbackVelocity = Vector2.zero;
+         rb.linearVelocity = Vector2.zero;
        }
      }
+     
+     if (Mouse.current.leftButton.wasPressedThisFrame && Time.time >= nextFireTime) {
+       Shoot();
+       nextFireTime = Time.time + fireRate;
+     }
+   }
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -88,6 +93,12 @@ public class PlayerController : MonoBehaviour
       // Spawn missile at the top of the player (offset in transform.up direction)
       Vector3 spawnPosition = transform.position + transform.up * 0.5f;
       GameObject missile = Instantiate(missilePrefab, spawnPosition, transform.rotation);
+
+      Missile missileScript = missile.GetComponent<Missile>();
+      if (missileScript != null)
+      {
+          missileScript.SetDamage(missileDamage);
+      }
       
       // Apply knockback to player in opposite direction of shooting
       if (rb != null) {
@@ -95,13 +106,25 @@ public class PlayerController : MonoBehaviour
         Vector2 shootDirection = ((Vector2)mousePosition3D - (Vector2)transform.position).normalized;
         Vector2 knockbackDirection = -shootDirection;
         
-        // Add to current knockback speed and cap at max
-        currentKnockbackSpeed += knockbackForce;
-        if (currentKnockbackSpeed > maxKnockbackSpeed) {
-          currentKnockbackSpeed = maxKnockbackSpeed;
-        }
+        // Calculate velocity needed to travel knockbackDistance
+        knockbackVelocity = knockbackDirection * knockbackSpeed;
+        knockbackTimer = knockbackDistance / knockbackSpeed;
         
-        rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+        rb.linearVelocity = knockbackVelocity;
       }
+    }
+
+    public void IncreaseFireRate(float decrease)
+    {
+        fireRate -= decrease;
+        if (fireRate < 0.1f)
+        {
+            fireRate = 0.1f;
+        }
+    }
+
+    public void IncreaseDamage(int amount)
+    {
+        missileDamage += amount;
     }
 }

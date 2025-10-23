@@ -66,4 +66,14 @@ public class PlayerHealth : MonoBehaviour
     {
         return maxHealth;
     }
+
+    public void Heal(int amount)
+    {
+        currentHealth += amount;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+    }
 }
