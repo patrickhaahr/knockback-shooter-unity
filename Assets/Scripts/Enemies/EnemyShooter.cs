@@ -29,11 +29,20 @@ public class EnemyShooter : MonoBehaviour
     {
         if (player == null) return;
 
+        LookAtPlayer();
+
         if (Time.time >= nextFireTime)
         {
             ShootAtPlayer();
             nextFireTime = Time.time + fireRate;
         }
+    }
+
+    private void LookAtPlayer()
+    {
+        Vector2 direction = (player.position - transform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90f;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     private void ShootAtPlayer()
@@ -45,7 +54,10 @@ public class EnemyShooter : MonoBehaviour
         }
 
         Vector2 direction = (player.position - transform.position).normalized;
-        GameObject missile = Instantiate(enemyMissilePrefab, transform.position, Quaternion.identity);
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90f;
+        Quaternion missileRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        
+        GameObject missile = Instantiate(enemyMissilePrefab, transform.position, missileRotation);
         
         Rigidbody2D missileRb = missile.GetComponent<Rigidbody2D>();
         if (missileRb != null)

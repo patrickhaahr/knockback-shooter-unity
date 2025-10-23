@@ -13,7 +13,7 @@ public class EnemyMissile : MonoBehaviour
         direction = shootDirection;
         spawnTime = Time.time;
         
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 

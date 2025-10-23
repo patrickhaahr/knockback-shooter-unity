@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float moveSpeed = 6f;
     [SerializeField] private float separationRadius = 1.5f;
     [SerializeField] private float separationWeight = 2f;
     [SerializeField] private float maxForce = 10f;

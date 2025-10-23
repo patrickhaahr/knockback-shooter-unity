@@ -7,10 +7,11 @@ public class PlayerController : MonoBehaviour
   [SerializeField] private GameObject missilePrefab;
   [SerializeField] private float knockbackDistance = 2f;
   [SerializeField] private float knockbackSpeed = 10f;
-  [SerializeField] private float fireRate = 0.2f;
-  [SerializeField] private int missileDamage = 10;
+  [SerializeField] private float fireRate = 0.1f;
+  [SerializeField] private int missileDamage = 25;
   [SerializeField] private int maxAmmo = 10;
-  [SerializeField] private float ammoRegenTime = 5f;
+  [SerializeField] private float ammoRegenTime = 2f;
+  [SerializeField] private float moveSpeed = 8f;
   
   private Camera mainCamera;
   private SpriteRenderer spriteRenderer;
@@ -30,30 +31,34 @@ public class PlayerController : MonoBehaviour
      currentAmmo = maxAmmo;
    }
 
-   private void Update() {
-     RotateTowardsMouse();
-     
-     // Apply knockback movement
-     if (knockbackTimer > 0f) {
-       knockbackTimer -= Time.deltaTime;
-       if (knockbackTimer <= 0f) {
-         knockbackVelocity = Vector2.zero;
-         rb.linearVelocity = Vector2.zero;
-       }
-     }
-     
-     // Regenerate ammo
-     if (currentAmmo < maxAmmo && Time.time >= nextAmmoRegenTime) {
-       currentAmmo++;
-       nextAmmoRegenTime = Time.time + ammoRegenTime;
-     }
-     
-     if (Mouse.current.leftButton.wasPressedThisFrame && Time.time >= nextFireTime && currentAmmo > 0) {
-       Shoot();
-       currentAmmo--;
-       nextFireTime = Time.time + fireRate;
-     }
-   }
+private void Update() {
+      RotateTowardsMouse();
+      
+      // Handle player movement
+      HandleMovement();
+      
+      // Apply knockback movement
+      if (knockbackTimer > 0f) {
+        knockbackTimer -= Time.deltaTime;
+        if (knockbackTimer <= 0f) {
+          knockbackVelocity = Vector2.zero;
+          rb.linearVelocity = Vector2.zero;
+        }
+      }
+      
+      // Regenerate ammo
+      if (currentAmmo < maxAmmo && Time.time >= nextAmmoRegenTime) {
+        currentAmmo += 2;
+        if (currentAmmo > maxAmmo) currentAmmo = maxAmmo;
+        nextAmmoRegenTime = Time.time + ammoRegenTime;
+      }
+      
+      if (Mouse.current.leftButton.wasPressedThisFrame && Time.time >= nextFireTime && currentAmmo > 0) {
+        Shoot();
+        currentAmmo--;
+        nextFireTime = Time.time + fireRate;
+      }
+    }
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -89,6 +94,22 @@ public class PlayerController : MonoBehaviour
 
 
 
+    private void HandleMovement() {
+      if (knockbackTimer > 0f) return; // Don't allow movement during knockback
+      
+      Vector2 moveInput = Vector2.zero;
+      if (Keyboard.current.wKey.isPressed) moveInput.y += 1;
+      if (Keyboard.current.sKey.isPressed) moveInput.y -= 1;
+      if (Keyboard.current.aKey.isPressed) moveInput.x -= 1;
+      if (Keyboard.current.dKey.isPressed) moveInput.x += 1;
+      
+      if (moveInput != Vector2.zero && rb != null) {
+        rb.linearVelocity = moveInput.normalized * moveSpeed;
+      } else if (knockbackTimer <= 0f && rb != null) {
+        rb.linearVelocity = Vector2.zero;
+      }
+    }
+    
     private void RotateTowardsMouse() {
       Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
       Vector2 direction = mousePosition - transform.position;

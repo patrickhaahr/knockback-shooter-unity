@@ -44,8 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 466cf831e06b20812a1398ee50c44313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupSpawner
-  pickupPrefab: {fileID: 4549843171708018422, guid: fc9311d8abea8db47ad2745b9bbb53bb, type: 3}
-  enemyShooterPrefab: {fileID: 4277371932125992321, guid: 818740ff7053677409557ac70aec2cbd, type: 3}
+  pickupPrefab: {fileID: 4549843171708018422, guid: fd832c48631781e47b4228e30e945f2b, type: 3}
+  enemyShooterPrefab: {fileID: 4277371932125992321, guid: 039fb5e952727cddb89e38d98f1d8d00, type: 3}
   spawnRadiusMin: 5
   spawnRadiusMax: 10
-  enemyShooterSpawnChance: 0.3

@@ -6,18 +6,17 @@ public class PickupSpawner : MonoBehaviour
     [SerializeField] private GameObject enemyShooterPrefab;
     [SerializeField] private float spawnRadiusMin = 5f;
     [SerializeField] private float spawnRadiusMax = 10f;
-    [SerializeField] private float enemyShooterSpawnChance = 0.3f;
 
     private Transform player;
     private int killsSinceLastSpawnCheck = 0;
-    private float currentSpawnChance = 0.30f;
-    private const float baseSpawnChance = 0.30f;
+    private float currentSpawnChance = 0.60f;
+    private const float baseSpawnChance = 0.60f;
     private const float chanceIncrement = 0.05f;
-    private const int minKillsBeforeFirstSpawn = 3;
+    private const int minKillsBeforeFirstSpawn = 2;
 
     private void Start()
     {
-        player = FindObjectOfType<PlayerController>().transform;
+        player = FindFirstObjectByType<PlayerController>().transform;
         SpawnPickup();
     }
 
@@ -59,35 +58,25 @@ public class PickupSpawner : MonoBehaviour
             return;
         }
 
+        if (pickupPrefab == null)
+        {
+            Debug.LogError("PickupSpawner: pickupPrefab is null!");
+            return;
+        }
+
         float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
         float distance = Random.Range(spawnRadiusMin, spawnRadiusMax);
 
         Vector2 offset = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * distance;
-        Vector3 spawnPosition = player.position + (Vector3)offset;
+        Vector3 pickupPosition = player.position + (Vector3)offset;
 
-        bool spawnEnemyShooter = Random.value <= enemyShooterSpawnChance && enemyShooterPrefab != null;
-
-        if (spawnEnemyShooter)
+        GameObject pickup = Instantiate(pickupPrefab, pickupPosition, Quaternion.identity);
+        
+        if (pickup != null && enemyShooterPrefab != null)
         {
-            GameObject enemyShooter = Instantiate(enemyShooterPrefab, spawnPosition, Quaternion.identity);
-            
             Vector2 closeOffset = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
-            Vector3 pickupPosition = spawnPosition + (Vector3)closeOffset;
-            
-            if (pickupPrefab != null)
-            {
-                GameObject pickup = Instantiate(pickupPrefab, pickupPosition, Quaternion.identity);
-            }
-        }
-        else
-        {
-            if (pickupPrefab == null)
-            {
-                Debug.LogError("PickupSpawner: pickupPrefab is null!");
-                return;
-            }
-            
-            GameObject pickup = Instantiate(pickupPrefab, spawnPosition, Quaternion.identity);
+            Vector3 enemyPosition = pickupPosition + (Vector3)closeOffset;
+            GameObject enemyShooter = Instantiate(enemyShooterPrefab, enemyPosition, Quaternion.identity);
         }
     }
 }
