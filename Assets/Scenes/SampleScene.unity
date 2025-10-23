@@ -483,6 +483,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1592454750 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2255572795970861848, guid: 9febb4d2df0476a82a26582efff3d718, type: 3}
+  m_PrefabInstance: {fileID: 7042891080976388457}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1655288854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -531,6 +536,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6489140517324633313, guid: d698258ec7686cb63bb4084ccb3e69a6, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1592454750}
+    - target: {fileID: 6489140517324633313, guid: d698258ec7686cb63bb4084ccb3e69a6, type: 3}
+      propertyPath: pickupPrefab
+      value: 
+      objectReference: {fileID: 4549843171708018422, guid: fd832c48631781e47b4228e30e945f2b, type: 3}
     - target: {fileID: 9172001072376698610, guid: d698258ec7686cb63bb4084ccb3e69a6, type: 3}
       propertyPath: m_Name
       value: Pickup Spawner
