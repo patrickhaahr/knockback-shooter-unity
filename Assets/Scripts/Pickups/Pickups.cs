@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public enum PickupType
 {
@@ -9,6 +10,8 @@ public enum PickupType
 
 public class Pickups : MonoBehaviour
 {
+    public static event Action<string> OnPickupCollected;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -20,7 +23,7 @@ public class Pickups : MonoBehaviour
 
     private void ApplyRandomBoost(GameObject player)
     {
-        PickupType randomBoost = (PickupType)Random.Range(0, 3);
+        PickupType randomBoost = (PickupType)UnityEngine.Random.Range(0, 3);
 
         switch (randomBoost)
         {
@@ -29,6 +32,7 @@ public class Pickups : MonoBehaviour
                 if (playerHealth != null)
                 {
                     playerHealth.Heal(20);
+                    OnPickupCollected?.Invoke("+20 Health");
                 }
                 break;
 
@@ -37,6 +41,7 @@ public class Pickups : MonoBehaviour
                 if (playerController != null)
                 {
                     playerController.IncreaseFireRate(0.1f);
+                    OnPickupCollected?.Invoke("+Fire Rate");
                 }
                 break;
 
@@ -45,6 +50,7 @@ public class Pickups : MonoBehaviour
                 if (controller != null)
                 {
                     controller.IncreaseDamage(5);
+                    OnPickupCollected?.Invoke("+5 Damage");
                 }
                 break;
         }

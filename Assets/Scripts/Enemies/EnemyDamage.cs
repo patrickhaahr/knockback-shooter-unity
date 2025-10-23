@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class EnemyDamage : MonoBehaviour
 {
-    [SerializeField] private int missileDamage = 10;
     [SerializeField] private int playerContactDamage = 10;
     [SerializeField] private float damageInterval = 1f;
     

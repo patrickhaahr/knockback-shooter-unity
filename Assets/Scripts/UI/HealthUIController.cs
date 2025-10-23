@@ -15,7 +15,7 @@ public class HealthUIController : MonoBehaviour
             uiDocument = GetComponent<UIDocument>();
 
         if (playerHealth == null)
-            playerHealth = FindObjectOfType<PlayerHealth>();
+            playerHealth = FindFirstObjectByType<PlayerHealth>();
     }
 
     private void OnEnable()
