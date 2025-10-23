@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="UnityEngine.UIElements"
+    xmlns:uie="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd"
+>
+    <ui:VisualElement name="kill-counter-container" style="position: absolute; top: 20px; left: 50%; translate: -50% 0; width: 200px; height: 40px; background-color: rgba(0, 0, 0, 0.5); border-radius: 5px; padding: 5px; align-items: center; justify-content: center;">
+        <ui:Label text="Kills: 0" display-tooltip-when-elided="true" name="kill-counter-text" style="color: white; font-size: 20px; -unity-text-align: middle-center; -unity-font-style: bold;" />
+    </ui:VisualElement>
+</ui:UXML>
