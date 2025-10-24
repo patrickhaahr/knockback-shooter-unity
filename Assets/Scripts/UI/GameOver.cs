@@ -9,6 +9,7 @@ public class GameOver : MonoBehaviour
     private VisualElement root;
     private VisualElement gameOverPanel;
     private Button restartButton;
+    private Button saveStatsButton;
     private Button quitButton;
     private Label gameOverText;
     private bool isGameOver = false;
@@ -47,8 +48,14 @@ public class GameOver : MonoBehaviour
     {
         gameOverPanel = root.Q<VisualElement>("GameOverPanel");
         gameOverText = root.Q<Label>("GameOverText");
+        saveStatsButton = root.Q<Button>("SaveStatsButton");
         restartButton = root.Q<Button>("RestartButton");
         quitButton = root.Q<Button>("QuitButton");
+        
+        if (saveStatsButton != null)
+        {
+            saveStatsButton.clicked += SaveStats;
+        }
         
         if (restartButton != null)
         {
@@ -89,6 +96,28 @@ public class GameOver : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    
+    private void SaveStats()
+    {
+        KillCounter killCounter = FindFirstObjectByType<KillCounter>();
+        
+        if (killCounter != null)
+        {
+            int currentKills = killCounter.GetKillCount();
+            PlayerPrefs.SetInt("EnemiesKilled", currentKills);
+            
+            int totalKills = PlayerPrefs.GetInt("TotalEnemiesKilled", 0);
+            PlayerPrefs.SetInt("TotalEnemiesKilled", totalKills + currentKills);
+            
+            PlayerPrefs.Save();
+            
+            if (saveStatsButton != null)
+            {
+                saveStatsButton.text = "Stats Saved!";
+                saveStatsButton.SetEnabled(false);
+            }
+        }
     }
     
     private void QuitGame()
