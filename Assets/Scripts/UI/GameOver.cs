@@ -104,8 +104,11 @@ public class GameOver : MonoBehaviour
         
         if (killCounter != null)
         {
-            int totalKills = killCounter.GetKillCount();
-            PlayerPrefs.SetInt("EnemiesKilled", totalKills);
+            int sessionKills = killCounter.GetKillCount();
+            int totalKills = PlayerPrefs.GetInt("TotalEnemiesKilled", 0) + sessionKills;
+            
+            PlayerPrefs.SetInt("TotalEnemiesKilled", totalKills);
+            PlayerPrefs.SetInt("LastSessionKills", sessionKills);
             
             PlayerPrefs.Save();
             

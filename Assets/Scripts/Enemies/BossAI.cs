@@ -6,8 +6,7 @@ public class BossAI : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float maxForce = 8f;
-    [SerializeField] private float orbitDistance = 12f;
-    [SerializeField] private float orbitSpeed = 2f;
+
     
     [Header("Attack Settings")]
     [SerializeField] private GameObject enemyMissilePrefab;

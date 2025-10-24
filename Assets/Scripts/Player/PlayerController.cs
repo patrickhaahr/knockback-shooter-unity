@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
   [SerializeField] private int missileDamage = 25;
   [SerializeField] private int maxAmmo = 15;
   [SerializeField] private float ammoRegenTime = 2f;
-  [SerializeField] private float moveSpeed = 8f;
+
   
   private Camera mainCamera;
   private SpriteRenderer spriteRenderer;
