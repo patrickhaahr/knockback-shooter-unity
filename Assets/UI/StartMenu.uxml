@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="StartMenuPanel" style="flex-grow: 1; justify-content: center; align-items: center; background-color: rgba(0, 0, 0, 0.8);">
+        <ui:VisualElement name="MenuContainer" style="width: 400px; height: 300px; justify-content: center; align-items: center; background-color: rgba(32, 32, 48, 0.9); border-radius: 10px; border-width: 2px; border-color: rgba(128, 128, 192, 0.8);">
+            <ui:Label text="Space Shooter" name="TitleText" style="font-size: 48px; color: rgb(255, 255, 255); -unity-font-style: bold; margin-bottom: 40px;" />
+            <ui:Button text="Play Game" name="PlayButton" style="width: 200px; height: 60px; font-size: 24px; background-color: rgba(64, 128, 255, 0.8); color: rgb(255, 255, 255); border-radius: 8px; border-width: 2px; border-color: rgba(128, 160, 255, 1); margin-top: 20px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

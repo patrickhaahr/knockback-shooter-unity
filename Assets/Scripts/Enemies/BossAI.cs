@@ -31,7 +31,6 @@ public class BossAI : MonoBehaviour
     private Rigidbody2D rb;
     private float nextAttackTime;
     private int attackPattern = 0;
-    private float orbitAngle = 0f;
     
     private float baseMoveSpeed;
     private float baseMaxForce;
