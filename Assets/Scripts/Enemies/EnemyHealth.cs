@@ -57,23 +57,6 @@ public class EnemyHealth : MonoBehaviour
             OnEnemyDestroyed?.Invoke();
         }
         
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            PlayerController playerController = player.GetComponent<PlayerController>();
-            PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-            
-            if (playerController != null)
-            {
-                playerController.AddAmmo(1);
-            }
-            
-            if (playerHealth != null)
-            {
-                playerHealth.Heal(10);
-            }
-        }
-        
         Destroy(gameObject);
     }
 }

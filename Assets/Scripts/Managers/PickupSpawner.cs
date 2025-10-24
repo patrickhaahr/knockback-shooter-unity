@@ -42,11 +42,33 @@ public class PickupSpawner : MonoBehaviour
         if (Random.value <= currentSpawnChance)
         {
             SpawnPickup();
+            RewardPlayerForKill();
             currentSpawnChance = baseSpawnChance;
         }
         else
         {
+            RewardPlayerForKill();
             currentSpawnChance += chanceIncrement;
+        }
+    }
+    
+    private void RewardPlayerForKill()
+    {
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+        {
+            PlayerController playerController = playerObj.GetComponent<PlayerController>();
+            PlayerHealth playerHealth = playerObj.GetComponent<PlayerHealth>();
+            
+            if (playerController != null)
+            {
+                playerController.AddAmmo(1);
+            }
+            
+            if (playerHealth != null)
+            {
+                playerHealth.Heal(10);
+            }
         }
     }
 

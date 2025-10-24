@@ -107,11 +107,12 @@ Vector2 spawnPosition = GetRandomSpawnPosition();
         enemiesSpawnedThisWave = 0;
         enemiesKilledThisWave = 0;
 
-        Invoke(nameof(StartSpawning), waveDelay);
+        StartCoroutine(StartSpawningAfterDelay());
     }
 
-    private void StartSpawning()
+    private System.Collections.IEnumerator StartSpawningAfterDelay()
     {
+        yield return new WaitForSeconds(waveDelay);
         isSpawningWave = true;
         nextSpawnTime = Time.time + spawnInterval;
     }

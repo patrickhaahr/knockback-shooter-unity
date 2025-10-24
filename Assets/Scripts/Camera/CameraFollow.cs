@@ -10,19 +10,12 @@ public class CameraFollow : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("=== CameraFollow START ===");
-        
         if (target == null)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
                 target = player.transform;
-                Debug.Log("CameraFollow: Found player");
-            }
-            else
-            {
-                Debug.LogError("CameraFollow: No player found");
             }
         }
     }

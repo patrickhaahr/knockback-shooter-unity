@@ -25,42 +25,41 @@ public class Pickups : MonoBehaviour
     private void ApplyRandomBoost(GameObject player)
     {
         PickupType randomBoost = (PickupType)UnityEngine.Random.Range(0, 4);
+        
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
 
         switch (randomBoost)
         {
             case PickupType.Health:
-                PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
                 if (playerHealth != null)
                 {
-                    playerHealth.Heal(20);
-                    OnPickupCollected?.Invoke("+20 Health");
+                    playerHealth.IncreaseMaxHealth(20);
+                    OnPickupCollected?.Invoke("+20 Max Health");
                 }
                 break;
 
             case PickupType.Damage:
-                PlayerController controller = player.GetComponent<PlayerController>();
-                if (controller != null)
+                if (playerController != null)
                 {
-                    controller.IncreaseDamage(5);
+                    playerController.IncreaseDamage(5);
                     OnPickupCollected?.Invoke("+5 Damage");
                 }
                 break;
 
             case PickupType.Ammo:
-                PlayerController ammoController = player.GetComponent<PlayerController>();
-                if (ammoController != null)
+                if (playerController != null)
                 {
-                    ammoController.RefillAmmo();
-                    ammoController.IncreaseMaxAmmo(5);
+                    playerController.RefillAmmo();
+                    playerController.IncreaseMaxAmmo(5);
                     OnPickupCollected?.Invoke("Ammo Refilled +5 Capacity");
                 }
                 break;
 
             case PickupType.KnockbackPower:
-                PlayerController knockbackController = player.GetComponent<PlayerController>();
-                if (knockbackController != null)
+                if (playerController != null)
                 {
-                    knockbackController.IncreaseKnockback(0.5f, 0.3f);
+                    playerController.IncreaseKnockback(0.5f, 0.3f);
                     OnPickupCollected?.Invoke("+Knockback Power");
                 }
                 break;
