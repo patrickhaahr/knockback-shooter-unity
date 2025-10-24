@@ -66,7 +66,7 @@ private void Start()
             return;
         }
 
-Vector2 spawnPosition = GetRandomSpawnPosition();
+        Vector2 spawnPosition = GetRandomSpawnPosition();
         GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
         
         EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
