@@ -43,7 +43,8 @@ public class EnemyAI : MonoBehaviour
 
         PursuePlayer();
     }
-
+    
+    // 
     private void PursuePlayer()
     {
         Vector2 playerDirection = (playerTransform.position - transform.position).normalized;
@@ -54,7 +55,8 @@ public class EnemyAI : MonoBehaviour
         
         rb.AddForce(steering);
     }
-
+    
+    // skubbe hinanden - ungå klumpe sammen 
     private Vector2 CalculateSeparation()
     {
         Collider2D[] neighbors = Physics2D.OverlapCircleAll(transform.position, separationRadius);

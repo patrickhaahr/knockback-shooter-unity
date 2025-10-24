@@ -45,7 +45,8 @@ private void Update() {
           rb.linearVelocity = Vector2.zero;
         }
       }
-      
+     
+      // Ammo 
       if (currentAmmo < maxAmmo && Time.time >= nextAmmoRegenTime) {
         currentAmmo += 2;
         if (currentAmmo > maxAmmo) currentAmmo = maxAmmo;
@@ -94,7 +95,8 @@ private void Update() {
         Debug.LogWarning("Missile prefab not assigned!");
         return;
       }
-      
+     
+      // follow cursor position
       Vector3 spawnPosition = transform.position + transform.up * 0.5f;
       GameObject missile = Instantiate(missilePrefab, spawnPosition, transform.rotation);
 
@@ -103,7 +105,8 @@ private void Update() {
       {
           missileScript.SetDamage(missileDamage);
       }
-      
+     
+      // knockback 
       if (rb != null) {
         Vector2 shootDirection = ((Vector2)mouseWorldPosition - (Vector2)transform.position).normalized;
         Vector2 knockbackDirection = -shootDirection;
