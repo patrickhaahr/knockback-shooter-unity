@@ -1,17 +1,12 @@
-# Space Shooter - Top-Down Wave Survival
+# Knockback Shooter - Top-Down Wave Survival
 
 A fast-paced top-down space shooter where you pilot a spaceship against endless waves of alien enemies. Master the knockback mechanics, survive increasingly difficult waves, and defeat powerful bosses to claim upgrades!
 
 ## 📸 Screenshots & Media
 
-> **Note:** Add your gameplay screenshots and GIFs here!
+![Gameplay GIF](docs/assets/gameplay.gif)
 
-```
-[Gameplay Screenshot 1]
-[Gameplay Screenshot 2]
-[Boss Battle GIF]
-[Pickup System GIF]
-```
+![Gameplay Screenshot](docs/assets/screen.png)
 
 ---
 
