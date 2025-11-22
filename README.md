@@ -144,49 +144,6 @@ Pickups spawn randomly with a 60% base chance after killing 2+ enemies. If no pi
 - ✅ Game over screen
 - ✅ Start menu
 
----
-
-## 🛠️ Technical Details
-
-### Built With
-- **Engine**: Unity 6 (6000.2.8f1)
-- **Rendering**: Universal Render Pipeline (URP)
-- **Input**: Unity Input System (new input system)
-- **UI**: UI Toolkit (UXML)
-- **Language**: C#
-
-### Project Structure
-```
-Assets/
-├── Scripts/
-│   ├── Player/         # Player controller, health, combat
-│   ├── Enemies/        # Enemy AI, health, boss behavior
-│   ├── Weapons/        # Missile projectiles (player & enemy)
-│   ├── Managers/       # Game, wave, spawn, boss battle systems
-│   ├── Pickups/        # Pickup items and effects
-│   ├── UI/             # Health bars, ammo, notifications, menus
-│   └── Camera/         # Camera follow and shake effects
-├── Prefabs/            # Reusable game objects
-├── Sprites/            # 2D artwork (ships, enemies, missiles)
-├── Scenes/             # Game and start menu scenes
-└── UI/                 # UXML UI layouts
-```
-
-### Build & Test
-This is a Unity project - no command-line build tools configured.
-
-**To Play:**
-1. Open project in Unity 6 (6000.2.8f1)
-2. Open `Assets/Scenes/StartScene.unity`
-3. Press Play in Unity Editor
-4. Click "Start Game" to begin
-
-**Testing:**
-- Manual playtesting in Unity Editor
-- No automated test framework configured
-
----
-
 ## 🎮 Gameplay Tips
 
 1. **Use Knockback Strategically**: Your shots push you backward - use this for quick dodges and repositioning
@@ -213,25 +170,3 @@ Pickups are guarded by dangerous turrets, creating meaningful choices about when
 
 ### Escalating Challenge
 Multiple difficulty layers (wave scaling, boss fights, post-boss multipliers) ensure the game stays challenging no matter how strong you become.
-
----
-
-## 📝 License
-
-This project is available for educational and portfolio purposes.
-
----
-
-## 🚧 Future Ideas
-
-- Additional enemy types with unique behaviors
-- More boss attack patterns
-- Power-up combinations/synergies
-- Leaderboard system
-- Audio and sound effects
-- Particle effects for impacts
-- Multiple playable ships
-
----
-
-**Developed with Unity 6**
